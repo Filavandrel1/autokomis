@@ -14,10 +14,8 @@ body#wyszukaj{
   background-image: url("../img/moroccan-flower.png");
 }
 
-body.login{
-  background-color: rgb(215, 9, 46);
-  color: white;
-  font-size: 10px;  
+body#dodaj{
+  background-color: rgb(204, 153, 255);
 }
 
 
@@ -52,6 +50,49 @@ div.login_container{
   flex-direction: column;
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 50px;
+}
+
+div.add_container{
+  width: 70%;
+  height: 80vh;
+  margin: 100px auto 0;
+  background-color: rgba(239, 229, 250, 0.59);
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+div.content_dodaj{
+  width: 90%;
+  height: 70%;
+  border-radius: 50px;
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+div.submits_wrapper_dodaj{
+  min-width: 100px;
+  height: 70px;
+  margin-top: 10px;
+}
+
+div.inputs_wrapper_dodaj{
+  width: 50%;
+  height: 90%;
+  padding: 50px;
+}
+div.img_container_dodaj{
+  width: 50%;
+  height: 100%;
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
 }
 
 /* logo */
@@ -133,7 +174,24 @@ p.logo{
   color: white;
 }
 
-button.check_login_btn:focus{
+.check_login_btn:focus{
+  color: rgba(0, 0, 0, 0.7) !important;
+  border: 2px solid rgba(0, 0, 0, 0.7) !important;
+}
+
+.check_adding_btn{
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px solid rgb(100, 0, 0);
+  color: white; 
+  margin: 10px 50px;
+}
+
+.check_adding_btn:hover{
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+}
+
+.check_adding_btn:focus{
   color: rgba(0, 0, 0, 0.7) !important;
   border: 2px solid rgba(0, 0, 0, 0.7) !important;
 }
@@ -170,6 +228,11 @@ p.error1{
   font-size: 1.5rem;
 }
 
+p.input_dodaj{
+  font-size: 1.3rem;
+  margin-bottom: 3px;
+}
+
 /* login */
 
 .overlay{
@@ -193,4 +256,11 @@ p.error1{
 
 h2{
   margin-bottom: 15px;
+}
+
+/* inputs */
+
+input.add{
+  width: 40%;
+  margin-bottom: 3px;
 }
