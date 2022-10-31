@@ -214,6 +214,20 @@ p.logo{
   color: white;
 }
 
+.metalic_choose_btn{
+  background-color: #fff;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.metalic_choose_btn:hover, .metalic_choose_btn:checked{
+  background-color: rgba(255, 226, 226, 0.64) !important;
+  border: 1px solid black !important;
+}
+
+
 /* forms */
 
 .login_form{
@@ -226,6 +240,7 @@ p.logo{
 
 p.error1{
   font-size: 1.5rem;
+  padding: 5px;
 }
 
 p.input_dodaj{

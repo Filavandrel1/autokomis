@@ -50,31 +50,53 @@
         <div class="inputs_wrapper_dodaj">
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Marka</span>
-            <input name="marka" required type="text" class="form-control" placeholder="Marka" aria-label="Username" aria-describedby="basic-addon1">
+            <input name="marka" autocomplete="off" required type="text" class="form-control" placeholder="Marka" aria-label="Username" aria-describedby="basic-addon1">
           </div>
           <div class="input-group mb-3"> 
             <span class="input-group-text" id="basic-addon1">Model</span>
-            <input name="model" required type="text" class="form-control" placeholder="Model" aria-label="Username" aria-describedby="basic-addon1">
+            <input name="model" autocomplete="off" required type="text" class="form-control" placeholder="Model" aria-label="Username" aria-describedby="basic-addon1">
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">VIN</span>
-            <input name="vin" required type="number" class="form-control" placeholder="VIN" aria-label="Username" aria-describedby="basic-addon1">
+            <input name="vin" autocomplete="off" required type="number" class="form-control" placeholder="VIN" aria-label="Username" aria-describedby="basic-addon1">
           </div>
+            <?php
+              if (isset($_POST['submit'])){
+                $vinok = 1;
+                if(strlen((string)$_POST['vin']) != 17){
+                  echo '<p class="error1">VIN musi składać się z 17 znaków!</p>';
+                  $vinok = 0;
+                }
+                $query = "SELECT COUNT(*) from auto where vin like '".$_POST['vin']."'";
+                $result = mysqli_query($con, $query);
+                if(mysqli_fetch_row($result)[0] == 1){
+                  echo '<p style="margin-left:5px;" class="error1">Auto o podanym VIN już istnieje!</p>';
+                  $vinok = 0;
+                }
+              }
+                
+            ?>
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Rok</span>
-            <input name="rok" required type="number" class="form-control" placeholder="Rok" aria-label="Username" aria-describedby="basic-addon1">
+            <input name="rok" autocomplete="off" required type="number" class="form-control" placeholder="Rok" aria-label="Username" aria-describedby="basic-addon1">
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Kolor</span>
-            <input name="kolor" required type="text" class="form-control" placeholder="Kolor" aria-label="Username" aria-describedby="basic-addon1">
+            <input name="kolor" autocomplete="off" required type="text" class="form-control" placeholder="Kolor" aria-label="Username" aria-describedby="basic-addon1">
           </div>
           <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Metalic</span>
-            <input name="metalic" required type="text" class="form-control" placeholder="Metalic" aria-label="Username" aria-describedby="basic-addon1">
+            <span style="width: 15%;" class="input-group-text" id="basic-addon1">Metalic</span>
+            <div style="width: 85%;" class="btn-group" role="group" aria-label="Basic radio toggle button group">
+              <input type="radio" class="btn-check" name="metalic" value="nie" id="btnradio1" autocomplete="off" checked>
+              <label class="btn metalic_choose_btn" for="btnradio1">Nie</label>
+
+              <input type="radio" class="btn-check" name="metalic" value="tak" id="btnradio2" autocomplete="off">
+              <label class="btn metalic_choose_btn" for="btnradio2">Tak</label>
+            </div>
           </div>
           <div class="input-group">
             <span class="input-group-text">Opis</span>
-            <textarea name="opis" required style="resize: none;" class="form-control" aria-label="With textarea"></textarea>
+            <textarea name="opis" autocomplete="off" required style="resize: none;" class="form-control" aria-label="With textarea"></textarea>
           </div>
         </div>
         <div class="img_container_dodaj">
@@ -82,10 +104,10 @@
             <input name="fileToUpload" required style="margin-top: 10px;" class="form-control" type="file" id="fileToUpload">
             <p>Format 300 x 300, wymagane rozszerzenie: .jpg / .jpeg / .png / .gif</p>
             <?php
-              if (isset($_POST["submit"])){
+                $uploadOk = 1;
+              if (isset($_POST["submit"]) && $vinok == 1) {
                 $target_dir = "uploads/";
                 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-                $uploadOk = 1;
                 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
                 $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
                 if($check !== false) {
@@ -150,4 +172,10 @@
 </body>
 </html>
 
+<?php
+  if(isset($_POST['submit']) && $uploadOk == 1 && $vinok == 1){
+    $query = "INSERT INTO auto (marka, model, VIN, rok, kolor, metalic, opis, zdjecie) VALUES ('".$_POST['marka']."', '".$_POST['model']."', '".$_POST['vin']."', '".$_POST['rok']."', '".$_POST['kolor']."', '".$_POST['metalic']."', '".$_POST['opis']."', '".$target_file."')";
+    $result = mysqli_query($con, $query);
+  }
+?>
 
