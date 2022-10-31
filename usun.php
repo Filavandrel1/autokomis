@@ -3,7 +3,7 @@
     include 'logowanie.php';
     $con = mysqli_connect($serwer, $user, $pass, $baza);
     if(!$con){
-        echo "Nie połączone z bazą";
+        echo "Nie połączone z bazą!";
     }
   ?>
 <!DOCTYPE html>
