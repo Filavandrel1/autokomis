@@ -1,6 +1,19 @@
 <!-- All needed php code -->
 <?php include('includes/basic_php.php');?>
 
+<?php
+    if(isset($_GET['added'])){
+        if($_GET['added'] == true){
+            echo '
+                <script type="text/javascript">
+                    alert("Dodano pomyślnie");
+                </script>
+                ';
+            $result = mysqli_query($con, $_GET['query']);
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

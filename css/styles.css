@@ -96,7 +96,7 @@ div.img_container_dodaj{
 
 div.confirm_adding_container{
   width: 50%;
-  height: 70vh;
+  height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,19 +108,48 @@ div.confirm_adding_container{
 
 div.ad{
   width: 400px;
-  height: 200px;
+  height: 400px;
   border-radius: 50px;
-  background-color: rgb(69, 189, 58);
+  background-color: rgb(13, 84, 82);
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex-direction: column;
 }
 
 div.ad_content{
-  width: 230px;
-  height: 150px;
-  background-color: #fff;
+  color: white;
+  width: 400px;
+  height: 250px;
   border-radius: 25px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+div.ad_content_all{
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+div.ad_content_describe{
+  width: 90%;
+  height: 150px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid black;
+  border-radius: 20px;
+  overflow-wrap: anywhere;
+  overflow-y: scroll;
 }
 
 div.img_content{
@@ -281,6 +310,11 @@ p.error1{
 p.input_dodaj{
   font-size: 1.3rem;
   margin-bottom: 3px;
+}
+
+p.addingform_attribute{
+  font-size: 1.4rem;
+  width: 50%;
 }
 
 /* login */

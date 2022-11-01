@@ -39,10 +39,8 @@
     
   }
   if(isset($_POST['submit']) && $vinok == 1 && $uploadOk == 1){
-    $query = "INSERT INTO auto (marka, model, VIN, rok, kolor, metalic, opis, zdjecie) VALUES ('".$_POST['marka']."', '".$_POST['model']."', '".$_POST['vin']."', '".$_POST['rok']."', '".$_POST['kolor']."', '".$_POST['metalic']."', '".$_POST['opis']."', '".$target_file."')";
     $url = "?img=".$target_file."&marka=".$_POST['marka']."&model=".$_POST['model']."&vin=".$_POST['vin']."&rok=".$_POST['rok']."&kolor=".$_POST['kolor']."&metalic=".$_POST['metalic']."&opis=".$_POST['opis']."#addingform";
     header("Location: $url");
-    // $result = mysqli_query($con, $query);
   }
 ?>
 
