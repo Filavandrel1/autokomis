@@ -2,6 +2,50 @@
 <?php 
   include('includes/basic_php.php'); 
 ?>
+<?php
+  if (isset($_POST['submit'])){
+    $vinok = 1;
+    if(strlen((string)$_POST['vin']) != 17){
+      $vinok = 0;
+    }
+    $query = "SELECT COUNT(*) from auto where vin like '".$_POST['vin']."'";
+    $result = mysqli_query($con, $query);
+    if(mysqli_fetch_row($result)[0] >= 1){
+      $vinok = 0;
+    }
+  }
+  $uploadOk = 1;
+  if (isset($_POST["submit"]) && $vinok == 1) {
+    $target_dir = "uploads/";
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+    if($check !== false) {
+      $uploadOk = 1;
+    } else {
+      $uploadOk = 0;
+    }
+    
+    // Check file size
+    if ($_FILES["fileToUpload"]["size"] > 5242880) {
+      $uploadOk = 0;
+    }
+    
+    // Allow certain file formats
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+    && $imageFileType != "gif" ) {
+      $uploadOk = 0;
+    }
+    
+  }
+  if(isset($_POST['submit']) && $vinok == 1 && $uploadOk == 1){
+    $query = "INSERT INTO auto (marka, model, VIN, rok, kolor, metalic, opis, zdjecie) VALUES ('".$_POST['marka']."', '".$_POST['model']."', '".$_POST['vin']."', '".$_POST['rok']."', '".$_POST['kolor']."', '".$_POST['metalic']."', '".$_POST['opis']."', '".$target_file."')";
+    $url = "?img=".$target_file."&marka=".$_POST['marka']."&model=".$_POST['model']."&vin=".$_POST['vin']."&rok=".$_POST['rok']."&kolor=".$_POST['kolor']."&metalic=".$_POST['metalic']."&opis=".$_POST['opis']."#addingform";
+    header("Location: $url");
+    // $result = mysqli_query($con, $query);
+  }
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +60,7 @@
 </head>
 <body id="dodaj">
   <?php
+    include('includes/addingform.php');
     if (isset($_SESSION['zalogowano'])) { 
   ?>
   <ul class="nav justify-content-center navbar_autokomis">
@@ -60,18 +105,15 @@
             <span class="input-group-text" id="basic-addon1">VIN</span>
             <input name="vin" autocomplete="off" required type="number" class="form-control" placeholder="VIN" aria-label="Username" aria-describedby="basic-addon1">
           </div>
-            <?php
+          <?php
               if (isset($_POST['submit'])){
-                $vinok = 1;
                 if(strlen((string)$_POST['vin']) != 17){
                   echo '<p class="error1">VIN musi składać się z 17 znaków!</p>';
-                  $vinok = 0;
                 }
                 $query = "SELECT COUNT(*) from auto where vin like '".$_POST['vin']."'";
                 $result = mysqli_query($con, $query);
-                if(mysqli_fetch_row($result)[0] == 1){
+                if(mysqli_fetch_row($result)[0] >= 1){
                   echo '<p style="margin-left:5px;" class="error1">Auto o podanym VIN już istnieje!</p>';
-                  $vinok = 0;
                 }
               }
                 
@@ -102,7 +144,7 @@
         <div class="img_container_dodaj">
           <div class="mb-3">
             <input name="fileToUpload" required style="margin-top: 10px;" class="form-control" type="file" id="fileToUpload">
-            <p>Format 300 x 300, wymagane rozszerzenie: .jpg / .jpeg / .png / .gif</p>
+            <p>Format 100 x 100, wymagane rozszerzenie: .jpg / .jpeg / .png / .gif</p>
             <?php
                 $uploadOk = 1;
               if (isset($_POST["submit"]) && $vinok == 1) {
@@ -127,14 +169,14 @@
                 
                 // Check file size
                 if ($_FILES["fileToUpload"]["size"] > 5242880) {
-                  echo "Plik jest za duży!!!";
+                  echo " Plik jest za duży!!!";
                   $uploadOk = 0;
                 }
                 
                 // Allow certain file formats
                 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
                 && $imageFileType != "gif" ) {
-                  echo "Złe rozszerzenie!!!";
+                  echo " Złe rozszerzenie!!!";
                   $uploadOk = 0;
                 }
                 
@@ -146,7 +188,7 @@
                   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
                     echo "Plik ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " został dodany.";
                   } else {
-                    echo "Wystąpił błąd przy próbie dodania twojego zdjęcia.";
+                    echo " Wystąpił błąd przy próbie dodania twojego zdjęcia.";
                   }
                 }
               }
@@ -169,13 +211,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+
 </body>
 </html>
 
-<?php
-  if(isset($_POST['submit']) && $uploadOk == 1 && $vinok == 1){
-    $query = "INSERT INTO auto (marka, model, VIN, rok, kolor, metalic, opis, zdjecie) VALUES ('".$_POST['marka']."', '".$_POST['model']."', '".$_POST['vin']."', '".$_POST['rok']."', '".$_POST['kolor']."', '".$_POST['metalic']."', '".$_POST['opis']."', '".$target_file."')";
-    $result = mysqli_query($con, $query);
-  }
-?>
 
