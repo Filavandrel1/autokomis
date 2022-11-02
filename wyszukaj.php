@@ -63,89 +63,57 @@
             </li>
         <?php } ?>
     </ul>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <form method="post">
-        Marka:
-        <select name="marka" id="" style="width: 100px;">
-        <?php
-            echo "<option value='0'></option>";
-            $query = "SELECT DISTINCT(marka) from auto";
-            $result = mysqli_query($con, $query);
-            while($option = mysqli_fetch_assoc($result)){
-                echo '<button type="submit" formaction="#"><option>'.$option['marka'].'</option></button>';
-            }
-        ?>
-        </select>
-        <input type="submit" value="wyślij">
-    </form>
-    <form action="wyszukaj.php" method="post">
-        model:
-        <select name="model" id="" style="width: 100px;">
-            <option value=""></option>
-        <?php
-            $query = "SELECT DISTINCT(model) from auto where marka = '".$_POST['marka']."'";
-            $result = mysqli_query($con, $query);
-            while($option = mysqli_fetch_assoc($result)){
-                echo "<option>".$option['model']."</option>";
-            }
-        ?>
-        </select>
-        <br>
-        Kolor: <br>
-        <?php
-            if(isset($_POST['marka'])){
-                $query = "SELECT DISTINCT(kolor) from auto where marka = '".$_POST['marka']."'";
-                $result = mysqli_query($con, $query);
-                while($option = mysqli_fetch_assoc($result)){
-                    echo "<input type='radio' name='kolor'  value='".$option['kolor']."'>".$option['kolor'];
-                }
-            }
-        ?>
-        <br>
-        <input type="number" name="od" id="">
-        <input type="number" name="do" id="">
-        <br>    
-        <input type="submit" value="wyślij">
-        <input type="reset" value="reset">
-    </form>
-    <?php
-        if(isset($_POST['model'])){
-            $model = $_POST['model'];
-        }
-        if(isset($_POST["kolor"])){
-            $kolor = $_POST["kolor"];
-        }
-        if(!empty($_POST["od"])){
-            $od = (int)$_POST["od"];
-        }
-        else{
-            $od = 0;
-        }
-        if(!empty($_POST["do"])){
-            $do = (int)$_POST["do"];
-        }
-        else{
-            $do = 1000000;
-        }
-        if(!empty($_POST["kolor"])){
-            $query = "SELECT * from auto where model like '$model' and kolor like '$kolor' and rok between $od and $do";
-        }
-        else{
-            @$query = "SELECT * from auto where model like '$model' and rok BETWEEN $od AND $do";
-        }
-        if(!empty($model)){
+    <div class="finding_container">
+        <nav class="finding_nav">
+            <form action="#" method="POST">
+                <select class="form-select" name="marka" onchange="this.form.submit()" style="margin-top: 100px;" aria-label="Default select example">
+                    <option value=""></option>
+                    <?php
+                        $query = "SELECT DISTINCT(marka) from auto";
+                        $result = mysqli_query($con, $query);
+                        while($row = mysqli_fetch_array($result)){
+                    ?>
+                    <option <?=(isset($_POST['marka']) && $_POST['marka'] == $row['marka']) ? 'selected' : '' ;?>><?=$row['marka']?></option>';
+                    <?php
+                        }
+                    ?>
+                    
+                </select>
+                <select class="form-select" name="model" <?= (isset($_POST['marka'])) ? '' : 'disabled'?> onchange="this.form.submit()" style="margin-top: 10px;" aria-label="Default select example">
+                <option></option>
+                    <?php
+                        $query = "SELECT DISTINCT(model) from auto WHERE marka = '{$_POST['marka']}'";
+                        $result = mysqli_query($con, $query);
+                        while($row = mysqli_fetch_array($result)){
+                    ?>
+                    <option <?=(isset($_POST['model']) && $_POST['model'] == $row['model']) ? 'selected' : '' ;?>><?=$row['model']?></option>';
+                    <?php
+                        }
+                    ?>
+                </select>
+                <select class="form-select" name="kolor" style="margin-top: 10px;" aria-label="Default select example">
+                <option></option>
+                    <?php
+                        if(isset($_POST['marka'])){
+                            $query = "SELECT DISTINCT(kolor) from auto WHERE marka = '{$_POST['marka']}'".((isset($_POST['model']) && $_POST['model'] != "") ? "AND model = '{$_POST['model']}'" : "");
+                        }
+                        else{
+                            $query = "SELECT DISTINCT(kolor) from auto";
+                        }
+                        $result = mysqli_query($con, $query);
+                        while($row = mysqli_fetch_array($result)){
+                    ?>
+                    <option <?=(isset($_POST['kolor']) && $_POST['kolor'] == $row['kolor']) ? 'selected' : '' ;?>><?=$row['kolor']?></option>';
+                    <?php
+                        }
+                    ?>
+                </select>
+            </form>
+        </nav>
+        <main class="finding_content">
 
-            $result = mysqli_query($con, $query);
-            while($row = mysqli_fetch_assoc($result)){
-                echo "<br>";
-                echo $row['marka']." ".$row['model']." ".$row['kolor']." ".$row['VIN']." ".$row['rok'];
-            }
-        }
-    ?>
+        </main>
+    </div>
 
     <!-- login form  -->
     <?php include('includes/login.php'); ?>

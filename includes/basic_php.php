@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    include 'logowanie.php';
+    include 'includes/logowanie.php';
     $con = mysqli_connect($serwer, $user, $pass, $baza);
     if(!$con){
         echo "Nie połączone z bazą";
