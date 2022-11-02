@@ -72,13 +72,7 @@
         </button>
       </a>
     </li>
-    <li class="nav-item">
-      <a href="usun.php">
-        <button
-          type="button" class="btn btn-outline-primary navbar_btn">USUŃ
-        </button>
-      </a>
-    </li>
+    
     <li class="nav-item">
       <a href="?wyloguj= true">
         <button
@@ -203,7 +197,9 @@
   <?php
   }
   else{
-    echo "Nie jesteś zalogowany";
+    echo 'Nie jesteś zalogowany
+    <a href="index.php#loginform"> Powrót do logowania</a>
+    ';
   }
   ?>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>

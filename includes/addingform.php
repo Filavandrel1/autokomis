@@ -7,7 +7,7 @@
 <div class="overlay" id="addingform">
   <div class="confirm_adding_container">
     <h2>Twoje ogłoszenie wygląda następująco:</h2>
-    <div class="ad">
+    <div style="margin-top: 20px;" class="ad">
       <div class="img_content">
         <img src="<?=$_GET['img']?>" alt="Błąd" height="100px" width="100px">
       </div>
@@ -28,7 +28,7 @@
     </div>
     <div class="buttton_container">
           <a href="index.php?added=true&query=<?=$query?>"><button type="button" class="btn check_login_btn">Zatwierdź</button></a>
-          <a href="index.php?added=false"><button type="button" class="btn check_login_btn">Anuluj</button></a>
+          <a href="index.php?added='false'"><button type="button" class="btn check_login_btn">Anuluj</button></a>
         </div>
   </div>
 </div>

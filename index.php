@@ -3,7 +3,7 @@
 
 <?php
     if(isset($_GET['added'])){
-        if($_GET['added'] == true){
+        if($_GET['added'] == 'true'){
             echo '
                 <script type="text/javascript">
                     alert("Dodano pomyślnie");
@@ -11,6 +11,9 @@
                 ';
             $result = mysqli_query($con, $_GET['query']);
         }
+    }
+    if(isset($_GET['comunicat']) && $_GET['comunicat'] == "niezalogowany"){
+        echo "<script>alert('BŁĄD! Jesteś niezalogowany!');</script>";
     }
 ?>
 
@@ -45,13 +48,7 @@
                     </button>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="usun.php">
-                    <button
-                        type="button" class="btn btn-outline-primary navbar_btn">USUŃ
-                    </button>
-                </a>
-            </li>
+            
             <li class="nav-item">
                 <a href="?wyloguj= true">
                     <button
@@ -72,13 +69,7 @@
                     </button>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="#loginform">
-                    <button
-                        type="button" class="btn btn-outline-primary navbar_btn locked_btn"><span class="material-symbols-outlined">lock</span>
-                    </button>
-                </a>
-            </li>
+            
             <li class="nav-item">
                 <a href="#loginform">  
                     <button
