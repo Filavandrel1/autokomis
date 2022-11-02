@@ -92,7 +92,70 @@ div.img_container_dodaj{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+div.confirm_adding_container{
+  width: 50%;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50px;
   
+}
+
+div.ad{
+  width: 400px;
+  height: 400px;
+  border-radius: 50px;
+  background-color: rgb(13, 84, 82);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+
+div.ad_content{
+  color: white;
+  width: 400px;
+  height: 250px;
+  border-radius: 25px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+div.ad_content_all{
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+div.ad_content_describe{
+  width: 90%;
+  height: 150px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid black;
+  border-radius: 20px;
+  overflow-wrap: anywhere;
+  overflow-y: scroll;
+}
+
+div.img_content{
+  width: 100px;
+  height: 100px;
+  background-color: white;
 }
 
 /* logo */
@@ -220,6 +283,7 @@ p.logo{
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 0 !important;
 }
 
 .metalic_choose_btn:hover, .metalic_choose_btn:checked{
@@ -248,6 +312,11 @@ p.input_dodaj{
   margin-bottom: 3px;
 }
 
+p.addingform_attribute{
+  font-size: 1.4rem;
+  width: 50%;
+}
+
 /* login */
 
 .overlay{
@@ -261,6 +330,7 @@ p.input_dodaj{
   justify-content: center;
   align-items: center;
   visibility: hidden;
+  z-index: 1;
 }
 
 .overlay:target{
