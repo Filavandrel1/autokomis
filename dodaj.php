@@ -85,6 +85,7 @@
     <div class="add_container">
       <div class="content_dodaj">
         <div class="inputs_wrapper_dodaj">
+          <p style="font-size: 8px; width: 100%; text-align: center;">Należy wypełnić wszystkie pola</p>
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Marka</span>
             <input name="marka" autocomplete="off" required type="text" class="form-control" placeholder="Marka" aria-label="Username" aria-describedby="basic-addon1">

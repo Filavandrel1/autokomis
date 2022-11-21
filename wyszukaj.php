@@ -61,6 +61,7 @@
     <div class="finding_container">
         <nav class="finding_nav">
             <form action="#" name="finding" id="form1" method="POST">
+                <p style="font-size: 8px; width: 100%; text-align: center;">Możliwość wybrania poszczególnych pól</p>
                 <span class="finding_text">Marka:</span>
                 <select class="form-select" name="marka" onchange="finding.submit()" aria-label="Default select example">
                     <option value="empty"></option>
